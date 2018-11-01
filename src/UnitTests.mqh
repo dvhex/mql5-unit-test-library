@@ -6,7 +6,7 @@
 
 #property copyright "Copyright 2014, Louis Fradin"
 #property link      "http://en.louis-fradin.net/"
-#property version   "1.00"
+#property version   "1.1"
 
 #include <Object.mqh>
 #include <Arrays\List.mqh>
@@ -30,10 +30,9 @@ class CUnitTests: public CObject{
       // Tests
       bool IsTrue(string file, int line, bool result);
       bool IsFalse(string file, int line, bool result);
+      template<typename T> bool IsEquals(string file, int line, T valueA, T valueB);
       bool IsEquals(string file, int line, string stringA, string stringB);
-      bool IsEquals(string file, int line, int nbrA, int nbrB);
-      bool IsEquals(string file, int line, double nbrA, double nbrB);
-      bool IsNotEquals(string file, int line, double nbrA, double nbrB);
+      template<typename T> bool IsNotEquals(string file, int line, T valueA, T valueB);
       void SetFalse(string file, int line, string message);
       
       // Failed tests
@@ -104,14 +103,14 @@ bool CUnitTests::IsFalse(string file, int line, bool result){
 }
 
 //+------------------------------------------------------------------+
-//| Unit test verifying if the two string arguments are equals
-//| @param stringA First string to compare
-//| @param stringB Second string to compare
+//| Unit test verifying if the two any arguments are equals
+//| @param valueA First value to compare
+//| @param valueB Second value to compare
 //+------------------------------------------------------------------+
 
-bool CUnitTests::IsEquals(string file, int line, string stringA,string stringB){
-   if(stringA!=stringB){ // If strings are differents
-      string message = "IsEquals('"+stringA+"','"+stringB+"')";
+template<typename T> bool CUnitTests::IsEquals(string file, int line, T valueA, T valueB){
+   if(valueA!=valueB){ // If values are differents
+      string message = "IsEquals("+(string)valueA+","+(string)valueB+")";
       this.AddFailedTest(file, line, message); // Add a fail test
       return false;
    }
@@ -120,30 +119,14 @@ bool CUnitTests::IsEquals(string file, int line, string stringA,string stringB){
 }
 
 //+------------------------------------------------------------------+
-//| Unit test verifying if the two int arguments are equals
-//| @param nbrA First int to compare
-//| @param nbrB Second int to compare
+//| Unit test verifying if the two string arguments are equals
+//| @param stringA First string to compare
+//| @param stringB Second string to compare
 //+------------------------------------------------------------------+
 
-bool CUnitTests::IsEquals(string file, int line, int nbrA, int nbrB){
-   if(nbrA!=nbrB){ // If strings are differents
-      string message = "IsEquals("+IntegerToString(nbrA)+","+IntegerToString(nbrB)+")";
-      this.AddFailedTest(file, line, message); // Add a fail test
-      return false;
-   }
-   else
-      return true;
-} 
-
-//+------------------------------------------------------------------+
-//| Unit test verifying if the two double arguments are equals
-//| @param nbrA First double to compare
-//| @param nbrB Second double to compare
-//+------------------------------------------------------------------+
-
-bool CUnitTests::IsEquals(string file, int line, double nbrA, double nbrB){
-   if(nbrA!=nbrB){ // If strings are differents
-      string message = "IsEquals("+DoubleToString(nbrA)+","+DoubleToString(nbrB)+")";
+bool CUnitTests::IsEquals(string file, int line, string stringA, string stringB){
+   if(stringA!=stringB){ // If strings are differents
+      string message = "IsEquals('"+stringA+"','"+stringB+"')";
       this.AddFailedTest(file, line, message); // Add a fail test
       return false;
    }
@@ -157,9 +140,9 @@ bool CUnitTests::IsEquals(string file, int line, double nbrA, double nbrB){
 //| @param nbrB Second double to compare
 //+------------------------------------------------------------------+
 
-bool CUnitTests::IsNotEquals(string file, int line, double nbrA, double nbrB){
+template<typename T> bool CUnitTests::IsNotEquals(string file, int line, T valueA, T valueB) {
    if(nbrA==nbrB){ // If strings are differents
-      string message = "IsNotEquals("+DoubleToString(nbrA)+","+DoubleToString(nbrB)+")";
+      string message = "IsNotEquals("+(string)valueA+","+(string)valueB+")";
       this.AddFailedTest(file, line, message); // Add a fail test
       return false;
    }
