@@ -33,12 +33,11 @@ For more informations, see examples.
   * bool **IsFalse**(string file, int line, bool result);
 * Strings
   * bool **IsEquals**(string file, int line, string stringA, string stringB);
-  * bool **IsNotEquals**(string file, int line, double nbrA, double nbrB);
-* Integers
-  * bool **IsEquals**(string file, int line, int nbrA, int nbrB);
 * Doubles
-  * bool **IsEquals**(string file, int line, double nbrA, double nbrB);
-  * bool **IsNotEquals**(string file, int line, double nbrA, double nbrB);
+  * bool **IsAlmostEquals**(string file, int line, double valueA, double valueB, int digits);
+* All types
+  * template<typename T> bool **IsEquals**(string file, int line, T valueA, T valueB);
+  * template<typename T> bool **IsNotEquals**(string file, int line, T valueA, T valueB);
 * Others
   * void **SetFalse**(string file, int line, string message);
 

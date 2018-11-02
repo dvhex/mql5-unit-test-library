@@ -32,6 +32,7 @@ class CUnitTests: public CObject{
       bool IsFalse(string file, int line, bool result);
       template<typename T> bool IsEquals(string file, int line, T valueA, T valueB);
       bool IsEquals(string file, int line, string stringA, string stringB);
+      bool IsAlmostEquals(string file, int line, double valueA, double valueB, int digits = 6);
       template<typename T> bool IsNotEquals(string file, int line, T valueA, T valueB);
       void SetFalse(string file, int line, string message);
       
@@ -127,6 +128,27 @@ template<typename T> bool CUnitTests::IsEquals(string file, int line, T valueA, 
 bool CUnitTests::IsEquals(string file, int line, string stringA, string stringB){
    if(stringA!=stringB){ // If strings are differents
       string message = "IsEquals('"+stringA+"','"+stringB+"')";
+      this.AddFailedTest(file, line, message); // Add a fail test
+      return false;
+   }
+   else
+      return true;
+}
+
+//+------------------------------------------------------------------+
+//| Unit test verifying if the two double arguments are almost equals
+//| @param valueA First value to compare
+//| @param valueB Second value to compare
+//| @param digits Number of decimal places
+//+------------------------------------------------------------------+
+
+
+bool CUnitTests::IsAlmostEquals(string file, int line, double valueA, double valueB, int digits) {
+   double k = MathPow(10, digits);
+   double intA = (int)(valueA * k);
+   double intB = (int)(valueB * k);
+   if (intA != intB) { // If values are differents
+      string message = "IsEquals("+DoubleToString(intA / k)+","+DoubleToString(intB / k)+")";
       this.AddFailedTest(file, line, message); // Add a fail test
       return false;
    }
