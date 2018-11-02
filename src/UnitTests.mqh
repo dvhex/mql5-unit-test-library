@@ -145,8 +145,8 @@ bool CUnitTests::IsEquals(string file, int line, string stringA, string stringB)
 
 bool CUnitTests::IsAlmostEquals(string file, int line, double valueA, double valueB, int digits) {
    double k = MathPow(10, digits);
-   double intA = (int)(valueA * k);
-   double intB = (int)(valueB * k);
+   double intA = (int)MathRound(valueA * k);
+   double intB = (int)MathRound(valueB * k);
    if (intA != intB) { // If values are differents
       string message = "IsEquals("+DoubleToString(intA / k)+","+DoubleToString(intB / k)+")";
       this.AddFailedTest(file, line, message); // Add a fail test
