@@ -51,7 +51,7 @@ CUnitTestsCollection::~CUnitTestsCollection(){
 //| Display failed test of the unit tests added
 //+------------------------------------------------------------------+
 
-CUnitTestsCollection::DisplayFailedTests(){
+void CUnitTestsCollection::DisplayFailedTests(){
    CFailedUnitTest *failedTest;
    CUnitTests *unitTest  = m_unitTestsList.GetFirstNode();
    int nbrOfUnitTests = m_unitTestsList.Total();
